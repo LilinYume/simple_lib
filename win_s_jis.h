@@ -129,9 +129,9 @@ namespace ms932
 			return *this;
 		}
 	};
-	/* Jis クラス
+	/* jis クラス
 		JISコード相当 [0x21:0xDF] をあつかう														*/
-	class Jis
+	class jis
 	{
 	private:
 		u_char letter;
@@ -139,13 +139,13 @@ namespace ms932
 		const int empty;
 	public:
 		// コンストラクタ
-		Jis() : empty( 0 )
+		jis() : empty( 0 )
 		{
 			letter = empty;
 			code = empty;
 		}
 		// コピーコンストラクタ
-		Jis( const Jis& ob ) : empty( 0 )
+		jis( const jis& ob ) : empty( 0 )
 		{
 			this-> letter = ob.letter;
 			this-> code = ob.code;
@@ -164,7 +164,7 @@ namespace ms932
 		/*	代入演算子オーバーロード
 			 Jisクラスのオブジェクトをコピーする際
 			 右辺が独自のメモリ領域を持つことを保証							*/
-		Jis& operator = ( Jis ob )
+		jis& operator = ( jis ob )
 		{
 			*this = ob;
 			return *this;
@@ -191,17 +191,17 @@ namespace ms932
 			}
 			return false;
 		}
-		friend std::ostream& operator << ( std::ostream& , Jis );
-		friend std::istream& operator >> ( std::istream& , Jis );
+		friend std::ostream& operator << ( std::ostream& , jis );
+		friend std::istream& operator >> ( std::istream& , jis );
 	};
 	// Jisコードに相当する文字をストリームに出力
-	std::ostream& operator << ( std::ostream& stream, Jis ob )
+	std::ostream& operator << ( std::ostream& stream, jis &ob )
 	{
 		stream << ob.letter;
 		return stream;
 	}
 	// Jisコードに相当する文字をストリームから入力
-	std::istream& operator >> ( std::istream& stream, Jis ob )
+	std::istream& operator >> ( std::istream& stream, jis &ob )
 	{
 		stream >> ob.letter;
 
@@ -225,7 +225,7 @@ namespace ms932
 		s_jis() : empty( 0 )
 		{
 			// ロケールを日本語に設定
-			loc_jpn = loc_jpn.global( std::locale( "Japanese_Japan" ) );
+			loc_jpn =  std::locale( "Japanese_Japan" );
 			letter.code = empty;
 			letter.byte[ first ] = empty;
 			letter.byte[ second ] = empty;
@@ -282,20 +282,20 @@ namespace ms932
 			}
 			return true;
 		}
-		friend std::ostream& operator << ( std::ostream& , s_jis );
-		friend std::istream& operator >> ( std::istream& , s_jis );
+		friend std::ostream& operator << ( std::ostream& , s_jis& );
+		friend std::istream& operator >> ( std::istream& , s_jis* );
 	};
 	// Shift-Jisコードを対応する文字相当で出力
-	std::ostream& operator << ( std::ostream& stream, s_jis ob )
+	std::ostream& operator << ( std::ostream& stream, s_jis &ob )
 	{
 		stream.imbue( ob.loc_jpn );
 		stream << ob.letter.byte[ second ] << ob.letter.byte[ first ];
 		return stream;
 	}
-	std::istream& operator >> ( std::istream& stream, s_jis ob )
+	std::istream& operator >> ( std::istream& stream, s_jis &ob )
 	{
 		stream.imbue( ob.loc_jpn );
-		stream >> ob.letter.byte[ first ] >> ob.letter.byte[ second ];
+		stream >> ob.letter.byte[ second ] >> ob.letter.byte[ first ];
 		
 		if ( stream.fail() ) {
 			std::cerr << "Reading Fail\n";
