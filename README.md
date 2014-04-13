@@ -2,5 +2,5 @@
 
 ## This is utility library for me on Microsoft VisualC++
 
-Version: VC 9.0
+Version: VC 9.0  
 OS: Windows 7
