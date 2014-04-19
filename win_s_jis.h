@@ -283,7 +283,7 @@ namespace ms932
 			return true;
 		}
 		friend std::ostream& operator << ( std::ostream& , s_jis& );
-		friend std::istream& operator >> ( std::istream& , s_jis* );
+		friend std::istream& operator >> ( std::istream& , s_jis& );
 	};
 	// Shift-Jisコードを対応する文字相当で出力
 	std::ostream& operator << ( std::ostream& stream, s_jis &ob )
