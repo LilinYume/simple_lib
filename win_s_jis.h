@@ -164,9 +164,10 @@ namespace ms932
 		/*	代入演算子オーバーロード
 			 Jisクラスのオブジェクトをコピーする際
 			 右辺が独自のメモリ領域を持つことを保証							*/
-		jis& operator = ( jis ob )
+		jis& operator = ( jis& ob )
 		{
-			*this = ob;
+			this-> letter = ob.letter;
+			this-> code = ob.code;
 			return *this;
 		}
 		/* format_put関数
@@ -238,10 +239,12 @@ namespace ms932
 			this-> letter.byte[ first ] = ob.letter.byte[ first ];
 			this-> letter.byte[ second ] = ob.letter.byte[ second ];
 		}
-		// Shift-Jisコード相当のshort int をコピー
-		s_jis& operator = ( s_jis ob ) 
+		s_jis& operator = ( s_jis& ob ) 
 		{
-			*this = ob;
+			this-> loc_jpn = ob.loc_jpn;
+			this-> letter.byte[ first ] = ob.letter.byte[ first ];
+			this-> letter.byte[ second ] = ob.letter.byte[ second ];
+			this-> letter.code = ob.letter.code;
 			return *this;
 		}
 		bool format_put( std::ostream& stream, wide_char sjis_char ) {
