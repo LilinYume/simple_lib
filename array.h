@@ -34,7 +34,7 @@ namespace simple
 				exit( EXIT_FAILURE );
 			}
 		}
-		/* コピーコンストラクタ												*/
+		/* コピーコンストラクタ													*/
 		Array( const Array &l_obj )
 		{
 			// コピーコンストラクタの引数に定義済みArray型が渡されたとき用
@@ -56,7 +56,7 @@ namespace simple
 			}
 		}
 		/* [] 演算子オーバーロード
-			添字アクセスによる値の設定と取得								*/
+			添字アクセスによる値の設定と取得										*/
 		type& operator [] ( int index ) 
 		{
 			if ( index < 0 ) throw std::invalid_argument("");
@@ -67,7 +67,7 @@ namespace simple
 			return this-> type_ptr[ index ];
 		}
 		/* = 演算子オーバーロード
-			Array型のインスタンス・メンバをコピー							*/
+			Array型のインスタンス・メンバをコピー								*/
 		Array& operator = ( Array& r_obj )
 		{
 			// 代入先のサイズが小さければ再割当て
@@ -88,7 +88,7 @@ namespace simple
 			}
 			return *this;
 		}
-		/* デストラクタ													*/
+		/* デストラクタ															*/
 		~Array() 
 		{
 			delete [] type_ptr;
@@ -96,4 +96,3 @@ namespace simple
 	};
 }
 #endif
-//------------------------------------------------------------------------dummy
