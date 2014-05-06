@@ -1,11 +1,11 @@
-ï»¿#include <iostream>
+#ifndef SIMPLE_ARRAY
+#define SIMPLE_ARRAY
+
+#include <iostream>
 #include <iomanip>
 #include <new>
 #include <stdexcept>
 #include <cstdlib>
-
-#ifndef SIMPLE_ARRAY
-#define SIMPLE_ARRAY
 
 namespace simple
 {
@@ -13,12 +13,12 @@ namespace simple
 	{
 	private:
 		type *type_ptr;
-		int size;
+		unsigned int size;
 	public:
-		/* ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-			å¼•æ•°ã«æŒ‡å®šã—ãŸã‚µã‚¤ã‚ºã§å‹•çš„å‰²ã‚Šå½“ã¦
-			private ãƒ¡ãƒ³ãƒã®å‹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã¸å‰²ã‚Šå½“ã¦ã‚‹ã€‚
-			ã“ã®æ™‚æŒ‡å®šã•ã‚ŒãŸã‚µã‚¤ã‚ºã‚’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å¤‰æ•°"size"(int) ã¸ä¿æŒ			*/
+		/* ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+			ˆø”‚Éw’è‚µ‚½ƒTƒCƒY‚Å“®“IŠ„‚è“–‚Ä
+			private ƒƒ“ƒo‚ÌŒ^‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ÖŠ„‚è“–‚Ä‚éB
+			‚±‚Ìw’è‚³‚ê‚½ƒTƒCƒY‚ğƒtƒB[ƒ‹ƒh•Ï”"size"(int) ‚Ö•Û			*/
 		explicit Array( const int set_size ) : size ( set_size )
 		{
 			try {
@@ -34,11 +34,11 @@ namespace simple
 				exit( EXIT_FAILURE );
 			}
 		}
-		/* ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿													*/
+		/* ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^													*/
 		Array( const Array &l_obj )
 		{
-			// ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®å¼•æ•°ã«å®šç¾©æ¸ˆã¿Arrayå‹ãŒæ¸¡ã•ã‚ŒãŸã¨ãç”¨
-			// ä»£å…¥å…ˆã®Arrayã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ–¹ãŒå°ã•ã‘ã‚Œã°å†å‰²å½“ã¦ã€‚
+			// ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ìˆø”‚É’è‹`Ï‚İArrayŒ^‚ª“n‚³‚ê‚½‚Æ‚«—p
+			// ‘ã“üæ‚ÌArrayƒIƒuƒWƒFƒNƒg‚Ì•û‚ª¬‚³‚¯‚ê‚ÎÄŠ„“–‚ÄB
 			if ( this-> size < l_obj.size ) {
 				try {
 					this-> type_ptr = new type [ l_obj.size ];
@@ -50,13 +50,13 @@ namespace simple
 			}
 			this-> size = l_obj.size;
 
-			// ãƒ¡ãƒ³ãƒã®å€¤ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã‚’ã‚³ãƒ”ãƒ¼
+			// ƒƒ“ƒo‚Ì’lƒV[ƒPƒ“ƒX‚ğƒRƒs[
 			for( int i = 0; i < this-> size; ++i ) {
 				this-> type_ptr[i] = l_obj.type_ptr[i];
 			}
 		}
-		/* [] æ¼”ç®—å­ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
-			æ·»å­—ã‚¢ã‚¯ã‚»ã‚¹ã«ã‚ˆã‚‹å€¤ã®è¨­å®šã¨å–å¾—										*/
+		/* [] ‰‰ZqƒI[ƒo[ƒ[ƒh
+			“YšƒAƒNƒZƒX‚É‚æ‚é’l‚Ìİ’è‚Ææ“¾										*/
 		type& operator [] ( int index ) 
 		{
 			if ( index < 0 ) throw std::invalid_argument("");
@@ -66,11 +66,11 @@ namespace simple
 			}
 			return this-> type_ptr[ index ];
 		}
-		/* = æ¼”ç®—å­ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
-			Arrayå‹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒ»ãƒ¡ãƒ³ãƒã‚’ã‚³ãƒ”ãƒ¼								*/
+		/* ‘ã“ü‰‰ZqƒI[ƒo[ƒ[ƒh
+			ArrayŒ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒXEƒƒ“ƒo‚ğƒRƒs[								*/
 		Array& operator = ( Array& r_obj )
 		{
-			// ä»£å…¥å…ˆã®ã‚µã‚¤ã‚ºãŒå°ã•ã‘ã‚Œã°å†å‰²å½“ã¦
+			// ‘ã“üæ‚ÌƒTƒCƒY‚ª¬‚³‚¯‚ê‚ÎÄŠ„“–‚Ä
 			if ( this-> size < r_obj.size ) {
 				try {
 					this-> type_ptr = new type [ r_obj.size ];
@@ -82,17 +82,18 @@ namespace simple
 			}
 			this-> size = r_obj.size;
 
-			// ãƒ¡ãƒ³ãƒã®å€¤ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã‚’ã‚³ãƒ”ãƒ¼
+			// ƒƒ“ƒo‚Ì’lƒV[ƒPƒ“ƒX‚ğƒRƒs[
 			for( int i = 0; i < this-> size; ++i ) {
 				this-> type_ptr[i] = r_obj.type_ptr[i];
 			}
 			return *this;
 		}
-		/* ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿															*/
+		/* ƒfƒXƒgƒ‰ƒNƒ^															*/
 		~Array() 
 		{
 			delete [] type_ptr;
 		}
+		friend int length( Array& );
 	};
 }
 #endif
