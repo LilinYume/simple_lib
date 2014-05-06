@@ -1,4 +1,6 @@
-﻿// つくりかけヾ(oﾟωﾟo)ﾉﾞ ﾌﾟﾆﾌﾟﾆ
+#ifndef FILE_H
+#define FILE_H
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -66,13 +68,4 @@ private:
 		return err_bit; 
 	}
 };
-
-int main()
-{
-	File t;
-	t.init_create( "tbl.txt" );
-	
-	
-	
-	return 0;
-}
+#endif
